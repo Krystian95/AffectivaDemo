@@ -3,6 +3,7 @@
         <title>Affectiva Demo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -14,7 +15,7 @@
     <body>
         <div class="container-fluid">
             <br>
-            <h3>Affectiva JS SDK PhotoDetector to track different emotions</h3>
+            <h3><span style="color: #ec048c;">Affectiva</span> JS SDK PhotoDetector to detect different emotions</h3>
             <br>
             <div class="row">
                 <div class="col-12">
@@ -24,20 +25,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6" id="affdex_elements" style="width:680px;height:480px;">
-                    <canvas id="image_canvas"></canvas>
+                <div class="col-5" id="affdex_elements" style="width: 500px; height: 375px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <canvas id="image_canvas"></canvas>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-12">
+                            <strong>DETECTOR LOG</strong>
+                            <div id="logs">
+                                <span>Starting the detector - please wait...</span><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <div style="height:25em;">
-                        <strong>EMOTION TRACKING RESULTS</strong>
-                        <div id="results" style="word-wrap:break-word;"></div>
-                    </div>
-                    <div>
-                        <strong>DETECTOR LOG</strong>
-                    </div>
-                    <div id="logs">
-                        <span>Starting the detector - please wait...</span><br>
-                    </div>
+                <div class="col-7">
+                    <strong>EMOTION TRACKING RESULTS</strong>
+                    <div id="results" style="word-wrap:break-word;"></div>
                 </div>
             </div>
         </div>

@@ -24,25 +24,35 @@ detector.addEventListener("onImageResultsSuccess", function (faces, image, times
 
     $('#results').html("");
 
-    log('#results', "Timestamp: " + timestamp.toFixed(2));
-    log('#results', "Number of faces found: " + faces.length);
+    if (faces.length === 0) {
+        log('#results', "<br><b style='color: red;'>Number of faces found</b>: " + faces.length);
+    }
 
     if (faces.length > 0) {
-        log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
 
-        log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function (key, val) {
-            return val.toFixed ? Number(val.toFixed(0)) : val;
-        }));
+        printData("Aspetto", faces[0].appearance);
 
-        log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function (key, val) {
-            return val.toFixed ? Number(val.toFixed(0)) : val;
-        }));
+        printData("Emozioni", faces[0].emotions);
 
-        log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
+        printData("Espressioni", faces[0].expressions);
+
+        log('#results', "<br><br><b>Emoji</b> " + faces[0].emojis.dominantEmoji);
 
         drawFeaturePoints(image, faces[0].featurePoints);
     }
 });
+
+function printData(title, data) {
+
+    log('#results', "<br><b class='clearfix' style='margin: 10px 0; display: block;'>" + title + "</b>");
+
+    log('#results', "<div class='row'>");
+    for (var key in data) {
+        var val = data[key].toFixed ? Number(data[key].toFixed(0)) : data[key];
+        log('#results', "<div class='col-4' style='display: inline-block;'><span>" + getTranslation(key) + ":</span> <span style='color: gray;'>" + val + "</span></div>");
+    }
+    log('#results', "</div>");
+}
 
 // Add a callback to notify if failed receive the results from processing an image.
 detector.addEventListener("onImageResultsFailure", function (image, timestamp, error) {
@@ -84,7 +94,7 @@ function loadFile(event) {
 
 // Convienence function for logging to the DOM
 function log(node_name, msg) {
-    $(node_name).append("<span>" + msg + "</span><br>")
+    $(node_name).append(msg);
 }
 
 // Draw Image to container
@@ -100,9 +110,9 @@ function drawImage(img) {
     var image = new Image();
     image.src = temp.canvas.toDataURL("image/png");
 
-    // Scale the image to 640x480 - the size of the display container.
-    contxt.canvas.width = img.width <= 640 ? img.width : 640;
-    contxt.canvas.height = img.height <= 480 ? img.height : 480;
+    // Scale the image to 500x375 - the size of the display container.
+    contxt.canvas.width = img.width <= 500 ? img.width : 500;
+    contxt.canvas.height = img.height <= 375 ? img.height : 375;
 
     var hRatio = contxt.canvas.width / img.width;
     var vRatio = contxt.canvas.height / img.height;
@@ -120,7 +130,7 @@ function drawImage(img) {
 
 // Draw the detected facial feature points on the image
 function drawFeaturePoints(img, featurePoints) {
-    
+
     var contxt = $('#image_canvas')[0].getContext('2d');
 
     var hRatio = contxt.canvas.width / img.width;
@@ -133,4 +143,84 @@ function drawFeaturePoints(img, featurePoints) {
         contxt.arc(featurePoints[id].x, featurePoints[id].y, 2, 0, 2 * Math.PI);
         contxt.stroke();
     }
+}
+
+function getTranslation(string) {
+
+    switch (string) {
+        // Appearance
+        case "gender":
+            return "Genere";
+        case "glasses":
+            return "Occhiali";
+        case "age":
+            return "Età";
+        case "ethnicity":
+            return "Etnia";
+            // Emotions
+        case "joy":
+            return "Gioia";
+        case "sadness":
+            return "Tristezza";
+        case "disgust":
+            return "Disgusto";
+        case "contempt":
+            return "Disprezzo";
+        case "anger":
+            return "Rabbia";
+        case "fear":
+            return "Paura";
+        case "surprise":
+            return "Sorpresa";
+        case "valence":
+            return "Valenza";
+        case "engagement":
+            return "Impegno";
+            // Expressions
+        case "smile":
+            return "Sorriso";
+        case "innerBrowRaise":
+            return "Sollevamento fronte interna";
+        case "browRaise":
+            return "Sollevamento fronte";
+        case "browFurrow":
+            return "Rughe in fronte";
+        case "noseWrinkle":
+            return "Grinze naso";
+        case "upperLipRaise":
+            return "Sollevamento labbro superiore";
+        case "lipCornerDepressor":
+            return "Depressione angolare labbra";
+        case "chinRaise":
+            return "Sollevamento mento";
+        case "lipPucker":
+            return "Grinze labbra";
+        case "lipPress":
+            return "Pressione labbra";
+        case "lipSuck":
+            return "Aspirazione labbra";
+        case "mouthOpen":
+            return "Apertura bocca";
+        case "smirk":
+            return "Smorfia";
+        case "eyeClosure":
+            return "Chiusura occhi";
+        case "attention":
+            return "Attenzione";
+        case "lidTighten":
+            return "Palpebre chiuse";
+        case "jawDrop":
+            return "Mascella abbassata";
+        case "dimpler":
+            return "Fossette";
+        case "eyeWiden":
+            return "Occhi spalancati";
+        case "cheekRaise":
+            return "Guancia sollevata";
+        case "lipStretch":
+            return "Labbra tirate";
+        default:
+            return string;
+    }
+
 }
