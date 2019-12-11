@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Affectiva Demo</title>
@@ -12,32 +6,34 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="https://download.affectiva.com/js/3.2.1/affdex.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="https://download.affectiva.com/js/3.4.1/affdex.js"></script>
         <script type="text/javascript" src="js/demo.js"></script>
 
     </head>
     <body>
         <div class="container-fluid">
             <br>
-            <h3>Affectiva JS SDK PhotoDetector to track different emotions.</h3>
+            <h3>Affectiva JS SDK PhotoDetector to track different emotions</h3>
             <br>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <input id="upload_button" type="file" accept="image/*" onchange="loadFile(event)" style="visibility: hidden;">
+                    <br>
+                    <br>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6" id="affdex_elements" style="width:680px;height:480px;">
-                    <canvas id="image_canvas">
+                <div class="col-6" id="affdex_elements" style="width:680px;height:480px;">
+                    <canvas id="image_canvas"></canvas>
                 </div>
-                <div class="col-md-5">
+                <div class="col-5">
                     <div style="height:25em;">
                         <strong>EMOTION TRACKING RESULTS</strong>
                         <div id="results" style="word-wrap:break-word;"></div>
                     </div>
                     <div>
-                        <strong>DETECTOR LOG MSGS</strong>
+                        <strong>DETECTOR LOG</strong>
                     </div>
                     <div id="logs">
                         <span>Starting the detector - please wait...</span><br>
